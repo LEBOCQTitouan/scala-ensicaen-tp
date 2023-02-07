@@ -1,6 +1,6 @@
 name := "TP_Scala"
 
-version := "1.20.11"
+version := "1.23.01"
 
 scalaVersion := "2.13.3"
 

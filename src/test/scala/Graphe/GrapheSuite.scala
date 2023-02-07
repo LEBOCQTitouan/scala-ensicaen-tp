@@ -6,23 +6,23 @@ import org.scalatest.matchers.should.Matchers
 class GrapheSuite extends AnyFunSuite with Matchers {
 
   test("Ajout d'arcs") {
-    val graphe3 = graphe1 + Arc("E", "F")
+    val graphe4 = graphe1 + Arc("E", "F")
 
-    graphe3.arcs should contain(Arc("E", "F"))
-    graphe3.noeuds should contain(Noeud("F"))
+    graphe4.arcs should contain(Arc("E", "F"))
+    graphe4.noeuds should contain(Noeud("F"))
 
-    graphe1.arcs.subsetOf(graphe3.arcs) shouldBe true
-    graphe1.noeuds.subsetOf(graphe3.noeuds) shouldBe true
+    graphe1.arcs.subsetOf(graphe4.arcs) shouldBe true
+    graphe1.noeuds.subsetOf(graphe4.noeuds) shouldBe true
   }
 
   test("Union de graphe") {
-    val graphe3 = graphe1 + graphe2
+    val graphe4 = graphe1 + graphe2
 
-    graphe1.arcs.subsetOf(graphe3.arcs) shouldBe true
-    graphe2.arcs.subsetOf(graphe3.arcs) shouldBe true
+    graphe1.arcs.subsetOf(graphe4.arcs) shouldBe true
+    graphe2.arcs.subsetOf(graphe4.arcs) shouldBe true
 
-    graphe1.noeuds.subsetOf(graphe3.noeuds) shouldBe true
-    graphe2.noeuds.subsetOf(graphe3.noeuds) shouldBe true
+    graphe1.noeuds.subsetOf(graphe4.noeuds) shouldBe true
+    graphe2.noeuds.subsetOf(graphe4.noeuds) shouldBe true
   }
 
   test("Voisins") {
@@ -42,6 +42,18 @@ class GrapheSuite extends AnyFunSuite with Matchers {
 
     graphe2.degre(Noeud("A")) shouldBe 1
     graphe2.degre(Noeud("B")) shouldBe 2
+
+    graphe3.degre(Noeud("A")) shouldBe 4
+    graphe3.degre(Noeud("B")) shouldBe 3
+    graphe3.degre(Noeud("F")) shouldBe 2
+  }
+
+  test("Nombre de triangles"){
+    graphe1.nombreTriangle shouldBe 0
+    graphe2.nombreTriangle shouldBe 0
+    (graphe2+Arc("D", "E")).nombreTriangle shouldBe 1
+    graphe3.nombreTriangle shouldBe 4
+    (graphe3 + Arc("B", "D")).nombreTriangle shouldBe 6
   }
 
   test("Distance"){
@@ -56,17 +68,27 @@ class GrapheSuite extends AnyFunSuite with Matchers {
     graphe2.distance(Noeud("A"), Noeud("F")) shouldBe Some(1)
     graphe2.distance(Noeud("A"), Noeud("G")) shouldBe Some(2)
 
+    graphe3.distance(Noeud("A"), Noeud("B")) shouldBe Some(1)
+    graphe3.distance(Noeud("A"), Noeud("C")) shouldBe Some(1)
+    graphe3.distance(Noeud("A"), Noeud("D")) shouldBe Some(1)
+    graphe3.distance(Noeud("A"), Noeud("E")) shouldBe Some(1)
+    graphe3.distance(Noeud("A"), Noeud("F")) shouldBe Some(2)
+    graphe3.distance(Noeud("B"), Noeud("F")) shouldBe Some(1)
+    graphe3.distance(Noeud("E"), Noeud("F")) shouldBe Some(3)
+
+
   }
 
   test("Composantes connexes") {
     graphe1.composantesConnexes shouldEqual Set(Set(Noeud("A"), Noeud("B")), Set(Noeud("C"), Noeud("D")), Set(Noeud("E")))
     graphe2.composantesConnexes shouldEqual Set(Set(Noeud("A"), Noeud("B"), Noeud("C"), Noeud("D"), Noeud("E"), Noeud("F"), Noeud("G")))
+    graphe3.composantesConnexes shouldEqual Set(Set(Noeud("A"), Noeud("B"), Noeud("C"), Noeud("D"), Noeud("E"), Noeud("F")))
   }
 
   test("BiColoration") {
     graphe1.estBicoloriable shouldBe true
     graphe2.estBicoloriable shouldBe false
-
+    graphe3.estBicoloriable shouldBe false
   }
 
 }

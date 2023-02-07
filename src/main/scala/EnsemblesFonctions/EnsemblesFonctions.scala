@@ -21,6 +21,12 @@ package object EnsemblesFonctions {
   // affiche un ensemble
   def afficheEnsemble(s: Ensemble): Unit = println(chaine(s))
 
+  // définir l'ensemble des éléments positifs
+  lazy val ensemblePositif: Ensemble = x => x >= 0
+
+  // définit l'ensemble [10; 20]
+  lazy val ensemble10a20: Ensemble = x => 10 <= x  && x <= 20
+
   // définir une méthode qui renvoie un singleton : l'ensemble qui ne contient que elem
   // i.e. la fonction qui renvoie vrai si on lui passe elem en paramètre, et faux sinon
   def singleton(elem: Int): Ensemble = {

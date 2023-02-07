@@ -3,19 +3,11 @@ package ASCIIart
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ASCIIartSuite extends AnyFunSuite with Matchers{
+class ASCIIartSuite extends AnyFunSuite with Matchers {
 
 
-  val a1 = new ASCIIart(art1)
-  val a2 = new ASCIIart(art2)
-
-  test("Lecture et taille ok") {
-    a1.largeur shouldEqual  4
-    a1.hauteur shouldEqual  5
-
-    a2.largeur shouldEqual  20
-    a2.hauteur shouldEqual  11
-  }
+  val a1 = new ASCIIart(art1._1, art1._2, art1._3)
+  val a2 = new ASCIIart(art1._1, art1._2, art1._3)
 
   test("Découpe des lettres - ok") {
     a1.tableLettre('a') shouldEqual List(" #  ", "# # ", "### ", "# # ", "# # ")

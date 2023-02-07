@@ -6,12 +6,32 @@ import org.scalatest.matchers.should.Matchers
 class EnsembleFonctionSuite extends AnyFunSuite with Matchers {
 
   val ensemblePair: Ensemble = (x: Int) => x % 2 == 0
-  val ensemblePositif: Ensemble = (x: Int) => x >= 0
 
   test("contient fonctionne") {
     contient(x => true, 1000) shouldBe true
     contient(ensemblePair, 10) shouldBe true
     contient(ensemblePair, 9) shouldBe false
+  }
+
+  test("ensemblePositif contient des éléments positifs") {
+    contient(ensemblePositif, 1000) shouldBe true
+    contient(ensemblePositif, 10) shouldBe true
+    contient(ensemblePositif, 0) shouldBe true
+
+    contient(ensemblePositif, -1000) shouldBe false
+    contient(ensemblePositif, -10) shouldBe false
+    contient(ensemblePositif, -1) shouldBe false
+  }
+
+
+  test("ensemble10a20 contient des éléments de 10 à 20") {
+    contient(ensemble10a20, 10) shouldBe true
+    contient(ensemble10a20, 15) shouldBe true
+    contient(ensemble10a20, 20) shouldBe true
+
+    contient(ensemble10a20, -1000) shouldBe false
+    contient(ensemble10a20, 0) shouldBe false
+    contient(ensemble10a20, 21) shouldBe false
   }
 
   test("singleton(x) contient x") {

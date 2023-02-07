@@ -8,7 +8,7 @@ class Conway(init: Int = 1) {
   // la suite infinie de tout les rangs
   val rangs : LazyList[List[Int]] = ???
 
-  //renvoie le rang sous forme de chaine de caractère
+  // renvoie le rang sous forme de chaine de caractère
   // attention : rang commence à 1
   def apply(rang: Int): String = ???
 
