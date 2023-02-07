@@ -54,7 +54,7 @@ package object EnsemblesFonctions {
 
   // définir une méthode pourTout, qui vérifie si p est vrai pour tout élément de s (de -limite à +limite)
   def pourTout(s: Ensemble, p: Int => Boolean): Boolean = {
-    testLimit(p, 0)
+    testLimit(p, -limite)
   }
 
   def testLimit(p: Int => Boolean, i : Int): Boolean = {
