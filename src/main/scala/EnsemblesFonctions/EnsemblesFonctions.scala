@@ -21,37 +21,68 @@ package object EnsemblesFonctions {
   // affiche un ensemble
   def afficheEnsemble(s: Ensemble): Unit = println(chaine(s))
 
-
-  /** *********************************************/
-  /*        méthodes à définir ci-dessous        */
-  /** *********************************************/
-
   // définir une méthode qui renvoie un singleton : l'ensemble qui ne contient que elem
   // i.e. la fonction qui renvoie vrai si on lui passe elem en paramètre, et faux sinon
-  def singleton(elem: Int): Ensemble = ???
+  def singleton(elem: Int): Ensemble = {
+    (test : Int) => test == elem
+  }
 
   // définir une méthode qui renvoie l'union de deux ensembles
-  def union(s: Ensemble, t: Ensemble): Ensemble = ???
+  def union(s: Ensemble, t: Ensemble): Ensemble = {
+    (test : Int) => t(test) || s(test)
+  }
 
   // définir une méthode renvoyant l'intersection de deux ensembles
-  def intersection(s: Ensemble, t: Ensemble): Ensemble = ???
+  def intersection(s: Ensemble, t: Ensemble): Ensemble = {
+    (test : Int) => s(test) && t(test)
+  }
 
   // définir une méthode diff qui renvoie la différence de deux ensembles (dans s, pas dans t)
-  def difference(s: Ensemble, t: Ensemble): Ensemble = ???
+  def difference(s: Ensemble, t: Ensemble): Ensemble = {
+    (test : Int) => s(test) && !t(test)
+  }
 
-  // définir une méhtode complement qui revoie le compléement d'un ensemble
-  def complement(s: Ensemble): Ensemble = ???
+  // définir une méhtode complement qui revoie le complément d'un ensemble
+  def complement(s: Ensemble): Ensemble = {
+    (test : Int) => !s(test)
+  }
 
   //définir une méthode filtre, qui renvoie le sous ensemble pour lequel p est vraie
-  def filtrer(s: Ensemble, p: Int => Boolean): Ensemble = ???
+  def filtrer(s: Ensemble, p: Int => Boolean): Ensemble = {
+    (test : Int) => s(test) && p(test)
+  }
 
   // définir une méthode pourTout, qui vérifie si p est vrai pour tout élément de s (de -limite à +limite)
-  def pourTout(s: Ensemble, p: Int => Boolean): Boolean = ???
+  def pourTout(s: Ensemble, p: Int => Boolean): Boolean = {
+    testLimit(p, 0)
+  }
+
+  def testLimit(p: Int => Boolean, i : Int): Boolean = {
+    if (i > limite)
+      return true
+    if (!p(i))
+      return false
+    testLimit(p, i+1)
+  }
 
   // définir une méthode ilExiste qui renvoie vrai si un élément renvoie vraie pour p
-  def ilExiste(s: Ensemble, p: Int => Boolean): Boolean = ???
+  def ilExiste(s: Ensemble, p: Int => Boolean): Boolean = {
+    testIlExist(s, p, 0)
+  }
+
+  def testIlExist(s: Ensemble, p: Int => Boolean, i: Int): Boolean = {
+    if (i > limite)
+      return false
+    if (s(i) && p(i))
+      return true
+    testIlExist(s, p, i+1)
+  }
 
   // définir une fonction image qui renvoie l'ensemble image de s
-  def image(s: Ensemble, f: Int => Int): Ensemble = ???
+  def image(s: Ensemble, f: Int => Int): Ensemble = {
+    (test: Int) => {
+      
+    }
+  }
 
 }
