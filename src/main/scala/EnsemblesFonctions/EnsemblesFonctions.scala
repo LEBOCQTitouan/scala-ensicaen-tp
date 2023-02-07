@@ -54,20 +54,20 @@ package object EnsemblesFonctions {
 
   // définir une méthode pourTout, qui vérifie si p est vrai pour tout élément de s (de -limite à +limite)
   def pourTout(s: Ensemble, p: Int => Boolean): Boolean = {
-    testLimit(p, -limite)
+    testLimit(s, p, -limite)
   }
 
-  def testLimit(p: Int => Boolean, i : Int): Boolean = {
+  def testLimit(s: Ensemble, p: Int => Boolean, i : Int): Boolean = {
     if (i > limite)
       return true
-    if (!p(i))
+    if (!p(i) && s(i))
       return false
-    testLimit(p, i+1)
+    testLimit(s, p, i+1)
   }
 
   // définir une méthode ilExiste qui renvoie vrai si un élément renvoie vraie pour p
   def ilExiste(s: Ensemble, p: Int => Boolean): Boolean = {
-    testIlExist(s, p, 0)
+    testIlExist(s, p, -limite)
   }
 
   def testIlExist(s: Ensemble, p: Int => Boolean, i: Int): Boolean = {
@@ -80,9 +80,14 @@ package object EnsemblesFonctions {
 
   // définir une fonction image qui renvoie l'ensemble image de s
   def image(s: Ensemble, f: Int => Int): Ensemble = {
-    (test: Int) => {
-      
-    }
+    (test: Int) => imageRec(s, f, test, -limite)
   }
 
+  def imageRec(s: Ensemble, f: Int => Int, n: Int, i: Int): Boolean = {
+    if (i > limite)
+      return false
+    if (s(i) && n == f(i))
+      return true
+    imageRec(s, f, n, i+1);
+  }
 }
